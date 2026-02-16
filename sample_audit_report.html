@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Server Audit — runsc</title>
+<style>
+  :root { --bg: #f8f9fa; --card: #fff; --text: #212529; --border: #dee2e6;
+           --accent: #0d6efd; --danger: #dc3545; --warn: #ffc107; --ok: #198754; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          background: var(--bg); color: var(--text); line-height: 1.6; padding: 2rem; max-width: 1200px; margin: auto; }
+  h1 { color: var(--accent); border-bottom: 3px solid var(--accent); padding-bottom: 0.5rem; margin-bottom: 1rem; }
+  h2 { color: #495057; border-bottom: 1px solid var(--border); padding-bottom: 0.3rem;
+        margin-top: 2rem; margin-bottom: 0.5rem; }
+  h3 { color: #6c757d; margin-top: 1rem; margin-bottom: 0.3rem; }
+  p { margin-bottom: 0.5rem; }
+  ul { padding-left: 1.5rem; margin-bottom: 0.5rem; }
+  li { margin-bottom: 0.3rem; }
+  code { background: #e9ecef; padding: 0.15rem 0.4rem; border-radius: 3px; font-size: 0.9em; }
+  pre.code-block { background: #212529; color: #f8f9fa; padding: 1rem; border-radius: 6px;
+                    overflow-x: auto; font-size: 0.85em; margin: 0.5rem 0 1rem 0; white-space: pre-wrap; word-break: break-all; }
+  strong { color: #343a40; }
+  hr { border: none; border-top: 2px solid var(--border); margin: 2rem 0; }
+  .severity-CRITICAL, .severity-HIGH { color: var(--danger); font-weight: bold; }
+  .severity-MEDIUM { color: #e67e22; font-weight: bold; }
+  .severity-LOW, .severity-INFO { color: #6c757d; }
+  @media print { body { padding: 0; } pre.code-block { white-space: pre-wrap; } }
+</style>
+</head>
+<body>
+<h1>Server Audit Report</h1>
+<br>
+<p><strong>Host:</strong> runsc (localhost)</p>
+<p><strong>Generated:</strong> 2026-02-16T15:31:14.621548+00:00</p>
+<p><strong>Script version:</strong> 2.0.0 | Schema: 2.0.0</p>
+<p><strong>Run as:</strong> root | Privilege: root</p>
+<p><strong>Profile:</strong> standard | Runtime: 6.31s</p>
+<p><strong>OS:</strong> Linux Linux-4.4.0-x86_64-with-glibc2.39</p>
+<br>
+<h2>Risk Flags</h2>
+<br>
+<ul>
+<li><strong>[MEDIUM]</strong> No EDR/AV agent detected <em>(confidence: low)</em></li>
+</ul>
+<p>  - Evidence: No known EDR services found running</p>
+<ul>
+<li><strong>[CRITICAL]</strong> TLS cert EXPIRED (/etc/ssl/certs/Baltimore<em>CyberTrust</em>Root.pem) <em>(confidence: high)</em></li>
+</ul>
+<p>  - Evidence: Expired 280 days ago</p>
+<br>
+<h2>System Identity &amp; Platform</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<ul>
+<li><strong>hostname:</strong> runsc</li>
+<li><strong>fqdn:</strong> localhost</li>
+<li><strong>domain:</strong> None</li>
+<li><strong>virtualization:</strong> docker</li>
+<li><strong>product_name:</strong> Google Compute Engine</li>
+<li><strong>cpu_count:</strong> 4</li>
+<li><strong>cpu<em>arch:</strong> x86</em>64</li>
+<li><strong>cpu_model:</strong> unknown</li>
+<li><strong>ram_kb:</strong> 9437184</li>
+<li><strong>ram_gb:</strong> 9.0</li>
+</ul>
+<h3>filesystems</h3>
+<pre class="code-block">
+{
+  &quot;filesystems&quot;: [
+    {
+      &quot;target&quot;: &quot;/&quot;,
+      &quot;source&quot;: &quot;none&quot;,
+      &quot;fstype&quot;: &quot;9p&quot;,
+      &quot;options&quot;: &quot;rw,trans=fd,rfdno=4,wfdno=4,aname=/,dfltuid=4294967294,dfltgid=4294967294,dcache=1000,cache=remote_revalidating,disable_fifo_open,overlayfs_stale_read,directfs&quot;,
+      &quot;children&quot;: [
+        {
+          &quot;target&quot;: &quot;/dev&quot;,
+          &quot;source&quot;: &quot;none&quot;,
+          &quot;fstype&quot;: &quot;dev&quot;,
+          &quot;options&quot;: &quot;rw,mode=0755&quot;,
+          &quot;children&quot;: [
+            {
+              &quot;target&quot;: &quot;/dev/shm&quot;,
+              &quot;source&quot;: &quot;none&quot;,
+              &quot;fstype&quot;: &quot;tmpfs&quot;,
+              &quot;options&quot;: &quot;rw,noexec,nosuid,mode=1777&quot;
+            },
+            {
+              &quot;target&quot;: &quot;/dev/pts&quot;,
+              &quot;source&quot;: &quot;none&quot;,
+              &quot;fstype&quot;: &quot;devpts&quot;,
+              &quot;options&quot;: &quot;rw&quot;
+            }
+          ]
+        },
+        {
+          &quot;target&quot;: &quot;/sys&quot;,
+          &quot;source&quot;: &quot;none&quot;,
+          &quot;fstype&quot;: &quot;sysfs&quot;,
+          &quot;options&quot;: &quot;ro,noexec,nosuid,dentry_cache_limit=1000&quot;,
+          &quot;children&quot;: [
+            {
+              &quot;target&quot;: &quot;/sys/fs/cgroup&quot;,
+              &quot;source&quot;: &quot;none&quot;,
+              &quot;fstype&quot;: &quot;tmpfs&quot;,
+              &quot;options&quot;: &quot;rw,noexec,nosuid&quot;,
+              &quot;children&quot;: [
+                {
+                  &quot;target&quot;: &quot;/sys/fs/cgroup/cpu&quot;,
+                  &quot;source&quot;: &quot;none[/container_01FDN3WzZyCryFBPePgt5nZm--wiggle--d07664]&quot;,
+                  &quot;fstype&quot;: &quot;cgroup&quot;,
+                  &quot;options&quot;: &quot;rw,cpu&quot;
+                },
+                {
+                  &quot;target&quot;: &quot;/sys/fs/cgroup/cpuacct&quot;,
+                  &quot;source&quot;: &quot;none[/container_01FDN3WzZyCryFBPePgt5nZm--wiggle--d07664]&quot;,
+                  &quot;fstype&quot;: &quot;cgroup&quot;,
+                  &quot;options&quot;: &quot;rw,cpuacct&quot;
+                },
+                {
+                  &quot;target&quot;: &quot;/sys/fs/cgroup/cpuset&quot;,
+                  &quot;source&quot;: &quot;none[/container_01FDN3WzZyCryFBPePgt5nZm--wiggle--d07664]&quot;,
+                  &quot;fstype&quot;: &quot;cgroup&quot;,
+                  &quot;options&quot;: &quot;rw,cpuset&quot;
+                },
+                {
+                  &quot;
+... (truncated)
+</pre>
+<ul>
+<li><strong>boot_mode:</strong> BIOS</li>
+</ul>
+<br>
+<h2>OS Versioning &amp; Patch State</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>os_release</h3>
+<pre class="code-block">
+{
+  &quot;PRETTY_NAME&quot;: &quot;Ubuntu 24.04.3 LTS&quot;,
+  &quot;NAME&quot;: &quot;Ubuntu&quot;,
+  &quot;VERSION_ID&quot;: &quot;24.04&quot;,
+  &quot;VERSION&quot;: &quot;24.04.3 LTS (Noble Numbat)&quot;,
+  &quot;VERSION_CODENAME&quot;: &quot;noble&quot;,
+  &quot;ID&quot;: &quot;ubuntu&quot;,
+  &quot;ID_LIKE&quot;: &quot;debian&quot;,
+  &quot;HOME_URL&quot;: &quot;https://www.ubuntu.com/&quot;,
+  &quot;SUPPORT_URL&quot;: &quot;https://help.ubuntu.com/&quot;,
+  &quot;BUG_REPORT_URL&quot;: &quot;https://bugs.launchpad.net/ubuntu/&quot;,
+  &quot;PRIVACY_POLICY_URL&quot;: &quot;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&quot;,
+  &quot;UBUNTU_CODENAME&quot;: &quot;noble&quot;,
+  &quot;LOGO&quot;: &quot;ubuntu-logo&quot;
+}
+</pre>
+<ul>
+<li><strong>kernel:</strong> 4.4.0</li>
+<li><strong>kernel_version:</strong> #1 SMP Sun Jan 10 15:06:54 PST 2016</li>
+<li><strong>uptime_seconds:</strong> 11.24</li>
+<li><strong>last_reboot:</strong> system boot  Feb 16 15:30</li>
+</ul>
+<h3>installed_packages_dpkg</h3>
+<pre class="code-block">
+{
+  &quot;adduser&quot;: &quot;3.137ubuntu1&quot;,
+  &quot;adwaita-icon-theme&quot;: &quot;46.0-1&quot;,
+  &quot;apt&quot;: &quot;2.8.3&quot;,
+  &quot;apt-transport-https&quot;: &quot;2.8.3&quot;,
+  &quot;at-spi2-common&quot;: &quot;2.52.0-1build1&quot;,
+  &quot;base-files&quot;: &quot;13ubuntu10.3&quot;,
+  &quot;base-passwd&quot;: &quot;3.6.3build1&quot;,
+  &quot;bash&quot;: &quot;5.2.21-2ubuntu4&quot;,
+  &quot;bc&quot;: &quot;1.07.1-3ubuntu4&quot;,
+  &quot;binutils&quot;: &quot;2.42-4ubuntu2.8&quot;,
+  &quot;binutils-common&quot;: &quot;2.42-4ubuntu2.8&quot;,
+  &quot;binutils-x86-64-linux-gnu&quot;: &quot;2.42-4ubuntu2.8&quot;,
+  &quot;bsdutils&quot;: &quot;1:2.39.3-9ubuntu6.4&quot;,
+  &quot;build-essential&quot;: &quot;12.10ubuntu1&quot;,
+  &quot;bzip2&quot;: &quot;1.0.8-5.1build0.1&quot;,
+  &quot;ca-certificates&quot;: &quot;20240203&quot;,
+  &quot;ca-certificates-java&quot;: &quot;20240118&quot;,
+  &quot;coreutils&quot;: &quot;9.4-3ubuntu6.1&quot;,
+  &quot;cpp&quot;: &quot;4:13.2.0-7ubuntu1&quot;,
+  &quot;cpp-13&quot;: &quot;13.3.0-6ubuntu2~24.04&quot;,
+  &quot;cpp-13-x86-64-linux-gnu&quot;: &quot;13.3.0-6ubuntu2~24.04&quot;,
+  &quot;cpp-x86-64-linux-gnu&quot;: &quot;4:13.2.0-7ubuntu1&quot;,
+  &quot;curl&quot;: &quot;8.5.0-2ubuntu10.6&quot;,
+  &quot;dash&quot;: &quot;0.5.12-6ubuntu5&quot;,
+  &quot;dbus&quot;: &quot;1.14.10-4ubuntu4.1&quot;,
+  &quot;dbus-bin&quot;: &quot;1.14.10-4ubuntu4.1&quot;,
+  &quot;dbus-daemon&quot;: &quot;1.14.10-4ubuntu4.1&quot;,
+  &quot;dbus-session-bus-common&quot;: &quot;1.14.10-4ubuntu4.1&quot;,
+  &quot;dbus-system-bus-common&quot;: &quot;1.14.10-4ubuntu4.1&quot;,
+  &quot;dbus-user-session&quot;: &quot;1.14.10-4ubuntu4.1&quot;,
+  &quot;dconf-gsettings-backend&quot;: &quot;0.40.0-4ubuntu0.1&quot;,
+  &quot;dconf-service&quot;: &quot;0.40.0-4ubuntu0.1&quot;,
+  &quot;debconf&quot;: &quot;1.5.86ubuntu1&quot;,
+  &quot;debianutils&quot;: &quot;5.17build1&quot;,
+  &quot;default-jre-headless&quot;: &quot;2:1.21-75+exp1&quot;,
+  &quot;dictionaries-common&quot;: &quot;1.29.7&quot;,
+  &quot;diffutils&quot;: &quot;1:3.10-1build1&quot;,
+  &quot;dirmngr&quot;: &quot;2.4.4-2ubuntu17.4&quot;,
+  &quot;distro-info-data&quot;: &quot;0.60ubuntu0.5&quot;,
+  &quot;dpkg&quot;: &quot;1.22.6ubuntu6.5&quot;,
+  &quot;dpkg-dev&quot;: &quot;1.22.6ubuntu6.5&quot;,
+  &quot;e2fsprogs&quot;: &quot;1.47.0-2.4~exp1ubuntu4.1&quot;,
+  &quot;emacsen-common&quot;: &quot;3.0.5&quot;,
+  &quot;ffmpeg&quot;: &quot;7:6.1.1-3ubuntu5&quot;,
+  &quot;file&quot;: &quot;1:5.45-3build1&quot;,
+  &quot;findutils&quot;: &quot;4.9.0-5build1&quot;,
+  &quot;fontconfig&quot;: &quot;2.15.0-1.1ubuntu2&quot;,
+  &quot;fontconfig-config&quot;: &quot;2.15.0-1.1ubuntu2&quot;,
+  &quot;fonts-crosextra-caladea&quot;: &quot;20200211-2&quot;,
+  &quot;fonts-crosextra-carlito&quot;: &quot;20230309-2&quot;,
+  &quot;fonts-dejavu&quot;: &quot;2.37-8&quot;,
+  &quot;fonts-dejavu-core&quot;: &quot;2.37-8&quot;,
+  &quot;fonts-dejavu-extra&quot;: &quot;2.37-8&quot;,
+  &quot;fonts-dejavu-mono&quot;: &quot;2.37-8&quot;,
+  &quot;fonts-freefont-ttf&quot;: &quot;20211204+svn4273-2&quot;,
+  &quot;fonts
+... (truncated)
+</pre>
+<ul>
+<li><strong>installed<em>package</em>count_dpkg:</strong> 867</li>
+</ul>
+<br>
+<h2>Installed Software Inventory</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>language_runtimes</h3>
+<pre class="code-block">
+{
+  &quot;python3&quot;: {
+    &quot;version&quot;: &quot;Python 3.12.3&quot;,
+    &quot;path&quot;: &quot;/usr/bin/python3&quot;
+  },
+  &quot;java&quot;: {
+    &quot;version&quot;: &quot;openjdk version \&quot;21.0.9\&quot; 2025-10-21&quot;,
+    &quot;path&quot;: &quot;/usr/bin/java&quot;
+  },
+  &quot;node&quot;: {
+    &quot;version&quot;: &quot;v22.22.0&quot;,
+    &quot;path&quot;: &quot;/usr/bin/node&quot;
+  },
+  &quot;perl&quot;: {
+    &quot;version&quot;: &quot;This is perl 5, version 38, subversion 2 (v5.38.2) built for x86_64-linux-gnu-thread-multi&quot;,
+    &quot;path&quot;: &quot;/usr/bin/perl&quot;
+  }
+}
+</pre>
+<ul>
+<li><strong>openssl_version:</strong> OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024)</li>
+<li><strong>ssh_version:</strong> command not found: ssh</li>
+</ul>
+<br>
+<h2>Running Services &amp; Config</h2>
+<br>
+<p><strong>Status:</strong> partial</p>
+<p><strong>Errors:</strong> systemctl not available or failed</p>
+<br>
+<h3>service_configs</h3>
+<pre class="code-block">
+{}
+</pre>
+<br>
+<h2>Network Exposure</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>dns_servers</h3>
+<pre class="code-block">
+[]
+</pre>
+<br>
+<h2>Users, Groups &amp; Identity</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>local_users</h3>
+<pre class="code-block">
+[
+  {
+    &quot;username&quot;: &quot;root&quot;,
+    &quot;uid&quot;: 0,
+    &quot;gid&quot;: 0,
+    &quot;home&quot;: &quot;/root&quot;,
+    &quot;shell&quot;: &quot;/bin/bash&quot;
+  },
+  {
+    &quot;username&quot;: &quot;daemon&quot;,
+    &quot;uid&quot;: 1,
+    &quot;gid&quot;: 1,
+    &quot;home&quot;: &quot;/usr/sbin&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;bin&quot;,
+    &quot;uid&quot;: 2,
+    &quot;gid&quot;: 2,
+    &quot;home&quot;: &quot;/bin&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;sys&quot;,
+    &quot;uid&quot;: 3,
+    &quot;gid&quot;: 3,
+    &quot;home&quot;: &quot;/dev&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;sync&quot;,
+    &quot;uid&quot;: 4,
+    &quot;gid&quot;: 65534,
+    &quot;home&quot;: &quot;/bin&quot;,
+    &quot;shell&quot;: &quot;/bin/sync&quot;
+  },
+  {
+    &quot;username&quot;: &quot;games&quot;,
+    &quot;uid&quot;: 5,
+    &quot;gid&quot;: 60,
+    &quot;home&quot;: &quot;/usr/games&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;man&quot;,
+    &quot;uid&quot;: 6,
+    &quot;gid&quot;: 12,
+    &quot;home&quot;: &quot;/var/cache/man&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;lp&quot;,
+    &quot;uid&quot;: 7,
+    &quot;gid&quot;: 7,
+    &quot;home&quot;: &quot;/var/spool/lpd&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;mail&quot;,
+    &quot;uid&quot;: 8,
+    &quot;gid&quot;: 8,
+    &quot;home&quot;: &quot;/var/mail&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;news&quot;,
+    &quot;uid&quot;: 9,
+    &quot;gid&quot;: 9,
+    &quot;home&quot;: &quot;/var/spool/news&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;uucp&quot;,
+    &quot;uid&quot;: 10,
+    &quot;gid&quot;: 10,
+    &quot;home&quot;: &quot;/var/spool/uucp&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;proxy&quot;,
+    &quot;uid&quot;: 13,
+    &quot;gid&quot;: 13,
+    &quot;home&quot;: &quot;/bin&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;www-data&quot;,
+    &quot;uid&quot;: 33,
+    &quot;gid&quot;: 33,
+    &quot;home&quot;: &quot;/var/www&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;backup&quot;,
+    &quot;uid&quot;: 34,
+    &quot;gid&quot;: 34,
+    &quot;home&quot;: &quot;/var/backups&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;list&quot;,
+    &quot;uid&quot;: 38,
+    &quot;gid&quot;: 38,
+    &quot;home&quot;: &quot;/var/list&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;irc&quot;,
+    &quot;uid&quot;: 39,
+    &quot;gid&quot;: 39,
+    &quot;home&quot;: &quot;/run/ircd&quot;,
+    &quot;shell&quot;: &quot;/usr/sbin/nologin&quot;
+  },
+  {
+    &quot;username&quot;: &quot;_apt&quot;,
+    &quot;uid&quot;: 42,
+    &quot;gid&quot;: 65534,
+    &quot;home&quot;: &quot;/nonexistent&quot;
+... (truncated)
+</pre>
+<ul>
+<li><strong>local<em>user</em>count:</strong> 22</li>
+</ul>
+<h3>local_groups</h3>
+<pre class="code-block">
+[
+  {
+    &quot;name&quot;: &quot;root&quot;,
+    &quot;gid&quot;: 0,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;daemon&quot;,
+    &quot;gid&quot;: 1,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;bin&quot;,
+    &quot;gid&quot;: 2,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;sys&quot;,
+    &quot;gid&quot;: 3,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;adm&quot;,
+    &quot;gid&quot;: 4,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;tty&quot;,
+    &quot;gid&quot;: 5,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;disk&quot;,
+    &quot;gid&quot;: 6,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;lp&quot;,
+    &quot;gid&quot;: 7,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;mail&quot;,
+    &quot;gid&quot;: 8,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;news&quot;,
+    &quot;gid&quot;: 9,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;uucp&quot;,
+    &quot;gid&quot;: 10,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;man&quot;,
+    &quot;gid&quot;: 12,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;proxy&quot;,
+    &quot;gid&quot;: 13,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;kmem&quot;,
+    &quot;gid&quot;: 15,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;dialout&quot;,
+    &quot;gid&quot;: 20,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;fax&quot;,
+    &quot;gid&quot;: 21,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;voice&quot;,
+    &quot;gid&quot;: 22,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;cdrom&quot;,
+    &quot;gid&quot;: 24,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;floppy&quot;,
+    &quot;gid&quot;: 25,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;tape&quot;,
+    &quot;gid&quot;: 26,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;sudo&quot;,
+    &quot;gid&quot;: 27,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;audio&quot;,
+    &quot;gid&quot;: 29,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;dip&quot;,
+    &quot;gid&quot;: 30,
+    &quot;members&quot;: [
+      &quot;ubuntu&quot;
+    ]
+  },
+  {
+    &quot;name&quot;: &quot;www-data&quot;,
+    &quot;gid&quot;: 33,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;backup&quot;,
+    &quot;gid&quot;: 34,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;operator&quot;,
+    &quot;gid&quot;: 37,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;list&quot;,
+    &quot;gid&quot;: 38,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;irc&quot;,
+    &quot;gid&quot;: 39,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;src&quot;,
+    &quot;gid&quot;: 40,
+    &quot;members&quot;: []
+  },
+  {
+    &quot;name&quot;: &quot;shadow&quot;,
+    &quot;gid&quot;: 42,
+    &quot;members&quot;: []
+ 
+... (truncated)
+</pre>
+<h3>sudo_group_members</h3>
+<pre class="code-block">
+[
+  &quot;ubuntu&quot;
+]
+</pre>
+<h3>ssh_authorized_keys</h3>
+<pre class="code-block">
+[]
+</pre>
+<br>
+<h2>Scheduled Tasks &amp; Persistence</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>system_crontabs</h3>
+<pre class="code-block">
+{
+  &quot;/etc/cron.d/e2scrub_all&quot;: [
+    &quot;30 3 * * 0 root test -e /run/systemd/system || SERVICE_MODE=1 /usr/lib/x86_64-linux-gnu/e2fsprogs/e2scrub_all_cron&quot;,
+    &quot;10 3 * * * root test -e /run/systemd/system || SERVICE_MODE=1 /sbin/e2scrub_all -A -r&quot;
+  ]
+}
+</pre>
+<ul>
+<li><strong>enabled_services:</strong> UNIT FILE              STATE   PRESET</li>
+</ul>
+<p>e2scrub_reap.service   enabled enabled</p>
+<p>getty@.service         enabled enabled</p>
+<p>systemd-pstore.service enabled enabled</p>
+<br>
+<p>3 unit files listed.</p>
+<br>
+<h2>Storage &amp; Backups</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<ul>
+<li><strong>network_mounts:</strong> none</li>
+<li><strong>disk_usage:</strong> Filesystem     Type   Size  Used Avail Use% Mounted on</li>
+</ul>
+<p>none           9p     9.9G  2.3M  9.9G   1% /</p>
+<p>none           dev    315G     0  315G   0% /dev</p>
+<p>none           tmpfs  315G     0  315G   0% /dev/shm</p>
+<p>none           tmpfs  315G     0  315G   0% /sys/fs/cgroup</p>
+<p>none           9p     1.0P     0  1.0P   0% /mnt/transcripts</p>
+<p>none           9p     1.0P     0  1.0P   0% /mnt/skills/public</p>
+<p>none           9p     9.9G  2.3M  9.9G   1% /container_info.json</p>
+<p>none           9p     1.0P     0  1.0P   0% /mnt/... (truncated)</p>
+<h3>backup_agents</h3>
+<pre class="code-block">
+[]
+</pre>
+<br>
+<h2>Certificates &amp; TLS</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>system_ca_bundle</h3>
+<pre class="code-block">
+{
+  &quot;path&quot;: &quot;/etc/ssl/certs/ca-certificates.crt&quot;,
+  &quot;exists&quot;: true,
+  &quot;size_bytes&quot;: 221954,
+  &quot;last_modified&quot;: &quot;2026-01-21T18:14:01+00:00&quot;,
+  &quot;owner&quot;: &quot;999&quot;,
+  &quot;group&quot;: &quot;ubuntu&quot;,
+  &quot;permissions&quot;: &quot;0644&quot;,
+  &quot;sha256&quot;: &quot;962a77ab3ccf93510b3ed97c5d39a9823aa564fde8c3b4ff553872e20c2f3665&quot;
+}
+</pre>
+<h3>certificate_files</h3>
+<pre class="code-block">
+[
+  {
+    &quot;path&quot;: &quot;/etc/ssl/certs/ACCVRAIZ1.pem&quot;,
+    &quot;exists&quot;: true,
+    &quot;size_bytes&quot;: 2772,
+    &quot;last_modified&quot;: &quot;2024-02-04T09:41:43+00:00&quot;,
+    &quot;owner&quot;: &quot;999&quot;,
+    &quot;group&quot;: &quot;ubuntu&quot;,
+    &quot;permissions&quot;: &quot;0644&quot;,
+    &quot;sha256&quot;: &quot;04846f73d9d0421c60076fd02bad7f0a81a3f11a028d653b0de53290e41dcead&quot;,
+    &quot;x509_info&quot;: &quot;subject=CN = ACCVRAIZ1, OU = PKIACCV, O = ACCV, C = ES\nissuer=CN = ACCVRAIZ1, OU = PKIACCV, O = ACCV, C = ES\nnotBefore=May  5 09:37:37 2011 GMT\nnotAfter=Dec 31 09:37:37 2030 GMT\nX509v3 Subject Alternative Name: \n    email:accv@accv.es\nserial=5EC3B7A6437FA4E0\nSHA1 Fingerprint=93:05:7A:88:15:C6:4F:CE:88:2F:FA:91:16:52:28:78:BC:53:64:17&quot;
+  },
+  {
+    &quot;path&quot;: &quot;/etc/ssl/certs/AC_RAIZ_FNMT-RCM.pem&quot;,
+    &quot;exists&quot;: true,
+    &quot;size_bytes&quot;: 1972,
+    &quot;last_modified&quot;: &quot;2024-02-04T09:41:43+00:00&quot;,
+    &quot;owner&quot;: &quot;999&quot;,
+    &quot;group&quot;: &quot;ubuntu&quot;,
+    &quot;permissions&quot;: &quot;0644&quot;,
+    &quot;sha256&quot;: &quot;aa18ea4c9a8441a461bb436a1c90beb994ac841980b8fd62c72de9a62ddf8ae3&quot;,
+    &quot;x509_info&quot;: &quot;subject=C = ES, O = FNMT-RCM, OU = AC RAIZ FNMT-RCM\nissuer=C = ES, O = FNMT-RCM, OU = AC RAIZ FNMT-RCM\nnotBefore=Oct 29 15:59:56 2008 GMT\nnotAfter=Jan  1 00:00:00 2030 GMT\nserial=5D938D306736C8061D1AC754846907\nSHA1 Fingerprint=EC:50:35:07:B2:15:C4:95:62:19:E2:A8:9A:5B:42:99:2C:4C:2C:20&quot;
+  },
+  {
+    &quot;path&quot;: &quot;/etc/ssl/certs/AC_RAIZ_FNMT-RCM_SERVIDORES_SEGUROS.pem&quot;,
+    &quot;exists&quot;: true,
+    &quot;size_bytes&quot;: 904,
+    &quot;last_modified&quot;: &quot;2024-02-04T09:41:43+00:00&quot;,
+    &quot;owner&quot;: &quot;999&quot;,
+    &quot;group&quot;: &quot;ubuntu&quot;,
+    &quot;permissions&quot;: &quot;0644&quot;,
+    &quot;sha256&quot;: &quot;8e3f237813d3f3e2f5767bc2a694a7557f84bb79fd60ef1adc25afd0c1fc5ef6&quot;,
+    &quot;x509_info&quot;: &quot;subject=C = ES, O = FNMT-RCM, OU = Ceres, organizationIdentifier = VATES-Q2826004J, CN = AC RAIZ FNMT-RCM SERVIDORES SEGUROS\nissuer=C = ES, O = FNMT-RCM, OU = Ceres, organizationIdentifier = VATES-Q2826004J, CN = AC RAIZ FNMT-RCM SERVIDORES SEGUROS\nnotBefore=Dec 20 09:37:33 2018 GMT\nnotAfter=Dec 20 09:37:33 2043 GMT\nserial=62F6326CE5C4E3685C1B62DD9C2E9D95\nSHA1 Fingerprint=62:
+... (truncated)
+</pre>
+<br>
+<h2>Logs &amp; Audit Evidence</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>logging_stack</h3>
+<pre class="code-block">
+[]
+</pre>
+<ul>
+<li><strong>journal<em>disk</em>usage:</strong> Archived and active journals take up 0B in the file system.</li>
+</ul>
+<br>
+<h2>Containers &amp; Orchestration</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<br>
+<h2>Security Posture</h2>
+<br>
+<p><strong>Status:</strong> ok</p>
+<br>
+<h3>edr_signals</h3>
+<pre class="code-block">
+[]
+</pre>
+<h3>password_policy_hints</h3>
+<pre class="code-block">
+{
+  &quot;/etc/pam.d/common-password&quot;: [
+    &quot;password\t[success=1 default=ignore]\tpam_unix.so obscure yescrypt&quot;,
+    &quot;password\trequisite\t\t\tpam_deny.so&quot;,
+    &quot;password\trequired\t\t\tpam_permit.so&quot;
+  ]
+}
+</pre>
+<br>
+<h2>Upgrade Planning (Recommendations)</h2>
+<br>
+<ul>
+<li><strong>Operating System</strong>: Ubuntu 24.04.3 LTS (Noble Numbat) → <em>Review against vendor support lifecycle</em></li>
+<li><strong>Kernel</strong>: 4.4.0 → <em>Ensure kernel receives security patches</em></li>
+<li><strong>Runtime: python3</strong>: Python 3.12.3 → <em>Verify version is within vendor support window</em></li>
+<li><strong>Runtime: java</strong>: openjdk version "21.0.9" 2025-10-21 → <em>Verify version is within vendor support window</em></li>
+<li><strong>Runtime: node</strong>: v22.22.0 → <em>Verify version is within vendor support window</em></li>
+<li><strong>Runtime: perl</strong>: This is perl 5, version 38, subversion 2 (v5.38.2) built for x86<em>64-linux-gnu-thread-multi → </em>Verify version is within vendor support window_</li>
+<li><strong>OpenSSL</strong>: OpenSSL 3.0.13 30 Jan 2024 (Library: OpenSSL 3.0.13 30 Jan 2024) → <em>Ensure version is patched and supported</em></li>
+</ul>
+<br>
+<h2>Data Minimization Note</h2>
+<br>
+<ul>
+<li>secrets_redacted: True</li>
+<li>secret<em>values</em>never_stored: True</li>
+<li>full<em>config</em>files_excluded: True</li>
+<li>password<em>hashes</em>excluded: True</li>
+<li>private<em>keys</em>excluded: True</li>
+<li>only<em>safe</em>metadata_collected: True</li>
+</ul>
+<br>
+<hr>
+<p>*Report generated by server_audit.py*</p>
+</body>
+</html>
