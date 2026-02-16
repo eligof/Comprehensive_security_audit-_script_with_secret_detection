@@ -51,7 +51,7 @@ from typing import Any, Dict, List, Optional, Tuple
 # Constants
 # ---------------------------------------------------------------------------
 REDACTED = "[REDACTED]"
-SECRET_WARNING_PREFIX = "WORNING SECRET FOUND!"
+SECRET_WARNING_PREFIX = "WARNING SECRET FOUND!"
 
 # Patterns that strongly suggest a secret value
 SECRET_PATTERNS: List[Tuple[re.Pattern, str, str]] = [
