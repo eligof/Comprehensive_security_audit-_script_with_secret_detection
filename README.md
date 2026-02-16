@@ -24,7 +24,7 @@ Audit complete — 4.8s — status: ok
 - **Cross-platform** — Linux (Debian/Ubuntu, RHEL/Rocky/Alma/CentOS, SUSE, Arch) and Windows Server (2016/2019/2022)
 - **12 collection categories** — system identity, OS/patch state, installed software, services, network, users, scheduled tasks, storage, certificates, logs, containers, and security posture
 - **3 output formats** — machine-readable JSON with a deterministic schema, human-readable Markdown, and a styled self-contained HTML report
-- **Automatic secret detection** — scans configs and env vars for passwords, API keys, tokens, and private keys; redacts values and logs locations with `WORNING SECRET FOUND!` warnings
+- **Automatic secret detection** — scans configs and env vars for passwords, API keys, tokens, and private keys; redacts values and logs locations with `WARNING SECRET FOUND!` warnings
 - **Risk flags** — auto-generated, evidence-backed findings (EOL OS, exposed database ports, weak SSH config, expiring TLS certs, missing EDR, disabled firewall, found secrets)
 - **Upgrade planning** — lists discovered component versions with upgrade recommendations
 - **Graceful degradation** — runs without root/admin; records `permission_missing` and continues
@@ -269,7 +269,7 @@ The script **never stores or prints secret values**. Here's how it works:
 3. **Redaction** — matched values are replaced with `[REDACTED]` in all three output formats
 4. **Location logging** — each finding is printed to stderr as:
    ```
-   WORNING SECRET FOUND! location=/etc/myapp/config.yml:L14 type=api_key_or_token confidence=medium
+   WARNING SECRET FOUND! location=/etc/myapp/config.yml:L14 type=api_key_or_token confidence=medium
    ```
 5. **Structured recording** — findings go into `secrets_findings[]` in the JSON with safe metadata only (location, type, confidence, evidence hint like the key name — never the value)
 
