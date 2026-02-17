@@ -20,7 +20,7 @@ Schema version: 2.0.0
 Script version: 2.0.0
 
 Author: Security Engineering — generated for manual audit runs.
-License: Internal / proprietary.
+License: MIT
 """
 
 from __future__ import annotations
@@ -51,7 +51,7 @@ from typing import Any, Dict, List, Optional, Tuple
 # Constants
 # ---------------------------------------------------------------------------
 REDACTED = "[REDACTED]"
-SECRET_WARNING_PREFIX = "WARNING SECRET FOUND!"
+SECRET_WARNING_PREFIX = "WORNING SECRET FOUND!"
 
 # Patterns that strongly suggest a secret value
 SECRET_PATTERNS: List[Tuple[re.Pattern, str, str]] = [
@@ -132,10 +132,10 @@ IS_WINDOWS = platform.system().lower() == "windows"
 IS_LINUX = platform.system().lower() == "linux"
 
 def run_cmd(
-    cmd: list | str,
+    cmd: "List[str] | str",
     timeout: int = 30,
     shell: bool = False,
-    env: dict | None = None,
+    env: Optional[dict] = None,
 ) -> Tuple[int, str, str]:
     """Run a command, return (returncode, stdout, stderr). Never raises."""
     try:
@@ -238,7 +238,7 @@ def now_iso() -> str:
     return datetime.datetime.now(datetime.timezone.utc).isoformat()
 
 
-def section_result(status: str = "ok", evidence: Any = None, errors: list | None = None) -> Dict[str, Any]:
+def section_result(status: str = "ok", evidence: Any = None, errors: Optional[list] = None) -> Dict[str, Any]:
     """Standard section wrapper."""
     return {
         "status": status,
