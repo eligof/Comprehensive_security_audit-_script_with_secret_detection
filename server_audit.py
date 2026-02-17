@@ -23,8 +23,6 @@ Author: Security Engineering — generated for manual audit runs.
 License: MIT
 """
 
-from __future__ import annotations
-
 __version__ = "2.0.0"
 SCHEMA_VERSION = "2.0.0"
 
@@ -45,7 +43,7 @@ import textwrap
 import time
 import traceback
 from pathlib import Path
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, Dict, List, Optional, Tuple, Union
 
 # ---------------------------------------------------------------------------
 # Constants
@@ -54,7 +52,7 @@ REDACTED = "[REDACTED]"
 SECRET_WARNING_PREFIX = "WORNING SECRET FOUND!"
 
 # Patterns that strongly suggest a secret value
-SECRET_PATTERNS: List[Tuple[re.Pattern, str, str]] = [
+SECRET_PATTERNS: List[Tuple[Any, str, str]] = [
     (re.compile(r"-----BEGIN\s+(RSA |EC |DSA |OPENSSH )?PRIVATE KEY-----", re.I), "private_key", "high"),
     (re.compile(r"AKIA[0-9A-Z]{16}", re.I), "aws_access_key", "high"),
     (re.compile(r"(?i)(password|passwd|pwd)\s*[:=]\s*\S+"), "password_assignment", "medium"),
@@ -132,7 +130,7 @@ IS_WINDOWS = platform.system().lower() == "windows"
 IS_LINUX = platform.system().lower() == "linux"
 
 def run_cmd(
-    cmd: "List[str] | str",
+    cmd: Union[List[str], str],
     timeout: int = 30,
     shell: bool = False,
     env: Optional[dict] = None,
@@ -141,8 +139,9 @@ def run_cmd(
     try:
         proc = subprocess.run(
             cmd,
-            capture_output=True,
-            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            universal_newlines=True,
             timeout=timeout,
             shell=shell,
             env=env,
@@ -318,7 +317,7 @@ class SecretFinder:
               file=sys.stderr)
 
     @staticmethod
-    def _safe_hint(match: re.Match, stype: str) -> str:
+    def _safe_hint(match: Any, stype: str) -> str:
         g = match.group(0)
         if "PRIVATE KEY" in g.upper():
             return "BEGIN PRIVATE KEY marker"
