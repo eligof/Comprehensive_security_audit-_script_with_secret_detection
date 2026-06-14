@@ -62,6 +62,8 @@ SECRET_PATTERNS: List[Tuple[Any, str, str]] = [
     (re.compile(r"(?i)bearer\s+[A-Za-z0-9\-._~+/]+=*", re.I), "bearer_token", "medium"),
     (re.compile(r"ghp_[A-Za-z0-9]{36,}"), "github_pat", "high"),
     (re.compile(r"sk-[A-Za-z0-9]{20,}"), "openai_key_like", "medium"),
+    (re.compile(r"eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]+"), "jwt", "high"),
+    (re.compile(r"[a-zA-Z][a-zA-Z0-9+.\-]*://[^\s:/@]+:[^\s/@]+@"), "url_credentials", "high"),
 ]
 
 # Environment variable names that are typically secrets
