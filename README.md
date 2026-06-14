@@ -353,6 +353,25 @@ The script is organized as a collection of independent collector functions. To a
 
 ---
 
+## Multi-Server Report
+
+When you audit a fleet, each host produces its own JSON report. The `report`
+subcommand merges multiple per-host audit JSON files from a directory into a
+single self-contained HTML report:
+
+```bash
+python3 server_audit.py report --input-dir ./collected_audits -o report.html
+```
+
+- `--input-dir` *(required)* — directory containing the per-host audit JSON files
+- `-o`, `--output` — output HTML file path (defaults to `users_audit_report.html` in the input directory)
+- `--light-theme` — use a light color scheme (the report defaults to dark)
+
+The output is a single dependency-free HTML file summarizing findings and
+recommendations across every server in the input directory.
+
+---
+
 ## License
 
 [MIT](LICENSE)
